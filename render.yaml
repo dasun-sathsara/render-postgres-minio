@@ -18,7 +18,6 @@ services:
   - type: pserv
     name: minio
     env: docker
-    plan: free
     envVars:
       - key: MINIO_ROOT_USER
         generateValue: true
