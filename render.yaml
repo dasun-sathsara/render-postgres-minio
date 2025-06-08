@@ -18,6 +18,7 @@ services:
     name: minio
     image:
       url: minio/minio
+    startCommand: server /data --console-address ":9001"
     envVars:
       - key: MINIO_ROOT_USER
         generateValue: true
