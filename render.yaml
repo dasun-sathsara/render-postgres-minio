@@ -7,11 +7,9 @@
 databases:
   - name: postgres-db-1
     plan: free 
-    postgresVersion: 15
 
   - name: postgres-db-2
     plan: free
-    postgresVersion: 15
 
 services:
   # ------------------
