@@ -11,8 +11,7 @@ services:
     name: postgres-db-1
     env: postgres
     plan: free
-    postgres:
-      version: 15
+    postgresVersion: 15
 
   # ------------------
   # PostgreSQL Database 2
@@ -21,8 +20,7 @@ services:
     name: postgres-db-2
     env: postgres
     plan: free
-    postgres:
-      version: 15
+    postgresVersion: 15
 
   # ------------------
   # MinIO Instance
