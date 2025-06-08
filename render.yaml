@@ -1,32 +1,34 @@
 # render.yaml
 #
 # Defines two PostgreSQL databases and one MinIO service.
-# This version correctly pulls the public MinIO Docker image.
 
 databases:
-  - name: nextjs-db
-    plan: free
+    - name: nextjs-db
+      plan: free
 
-  - name: python-db
-    plan: free
+    - name: python-db
+      plan: free
 
 services:
-  # ------------------
-  # MinIO Instance
-  # ------------------
-  - type: pserv
-    name: minio
-    image:
-      url: minio/minio
-    startCommand: server /data --console-address ":9001"
-    envVars:
-      - key: MINIO_ROOT_USER
-        generateValue: true
-      - key: MINIO_ROOT_PASSWORD
-        generateValue: true
-      - key: MINIO_DEFAULT_BUCKETS
-        value: "main"
-    disk:
-      name: minio-data
-      mountPath: /data
-      sizeGB: 1
+    - type: web
+      name: minio-server
+      healthCheckPath: /minio/health/live
+      runtime: image
+      image:
+          url: docker.io/minio/minio:latest
+      dockerCommand: minio server /data --address $HOST:$PORT
+      autoDeploy: false
+      disk:
+          name: data
+          mountPath: /data
+      envVars:
+          - key: MINIO_ROOT_USER
+            generateValue: true
+          - key: MINIO_ROOT_PASSWORD
+            generateValue: true
+          - key: HOST
+            value: '0.0.0.0'
+          - key: PORT
+            value: 9000
+          - key: MINIO_BROWSER
+            value: 'off'
