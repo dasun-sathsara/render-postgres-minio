@@ -1,14 +1,13 @@
-# render.yaml 
+# render.yaml
 #
 # Defines two PostgreSQL databases and one MinIO service.
-# Databases are defined under the top-level 'databases' key.
-# MinIO is a private service and remains under the 'services' key.
+# This version correctly pulls the public MinIO Docker image.
 
 databases:
-  - name: postgres-db-1
-    plan: free 
+  - name: nextjs-db
+    plan: free
 
-  - name: postgres-db-2
+  - name: python-db
     plan: free
 
 services:
@@ -17,7 +16,9 @@ services:
   # ------------------
   - type: pserv
     name: minio
-    env: docker
+    image:
+      url: minio/minio
+    command: server /data --console-address ":9001"
     envVars:
       - key: MINIO_ROOT_USER
         generateValue: true
