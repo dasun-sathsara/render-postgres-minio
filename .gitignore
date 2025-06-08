@@ -1,0 +1,11 @@
+# .gitignore
+
+# Ignore local environment files
+.env
+
+# Ignore build artifacts
+/build
+/dist
+
+# Ignore dependency directories
+/node_modules

@@ -1,0 +1,44 @@
+# render.yaml
+#
+# This file defines the services for two PostgreSQL databases and one MinIO
+# instance on Render.com.
+
+services:
+  # ------------------
+  # PostgreSQL Database 1
+  # ------------------
+  - type: pserv
+    name: postgres-db-1
+    env: postgres
+    plan: free
+    postgres:
+      version: 15
+
+  # ------------------
+  # PostgreSQL Database 2
+  # ------------------
+  - type: pserv
+    name: postgres-db-2
+    env: postgres
+    plan: free
+    postgres:
+      version: 15
+
+  # ------------------
+  # MinIO Instance
+  # ------------------
+  - type: pserv
+    name: minio
+    env: docker
+    plan: free
+    envVars:
+      - key: MINIO_ROOT_USER
+        generateValue: true
+      - key: MINIO_ROOT_PASSWORD
+        generateValue: true
+      - key: MINIO_DEFAULT_BUCKETS
+        value: "main"
+    disk:
+      name: minio-data
+      mountPath: /data
+      sizeGB: 1
